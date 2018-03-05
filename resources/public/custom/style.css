@@ -1,0 +1,26 @@
+body {
+    background: #ededed;
+}
+header {
+    padding: 2em 0;
+    margin-bottom: 2em;
+}
+header h1 {
+    font-size: 2em;
+}
+header h1 small:before  {
+    content: "|";
+    margin: 0 0.5em;
+    font-size: 1.6em;
+}
+footer {
+    background: #ccc;
+}
+.large-button {
+  height: 100px;
+  font-size: 22pt;
+  font-weight: bold;
+}
+#with-outline {
+  margin-top: 0.6em;
+}

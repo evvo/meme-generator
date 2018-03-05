@@ -1,0 +1,12 @@
+/target
+/lib
+/classes
+/checkouts
+/resources/images/*
+/resources/memes/*
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/.lein-*
+/.nrepl-port
