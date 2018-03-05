@@ -16,4 +16,4 @@ To start a web server for the application, run:
 
 ## License
 
-Copyright © 2018
+Copyright © 2018 Evtimiy Mihaylov (evo@vaupe.com)
