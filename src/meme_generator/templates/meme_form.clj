@@ -13,7 +13,7 @@
            [:div {:class "control-group required column-group gutters"}
             [:label {:class "all-20 small-30 tiny-30 medium-20 large-15 xlarge-15 align-right" :for "text"} "Text"]
              [:div {:class "control all-80 small-70 tiny-70 medium-75 large-80 xlarge-80"}
-              (f/text-field :text "die texten")]]]
+              (f/text-field :text "your meme text")]]]
          [:fieldset
            [:div {:class "control-group column-group gutters"}
             [:label {:class "all-20 small-30 tiny-30 medium-20 large-15 xlarge-15 align-right" :for "image"} "Meme Image"]
