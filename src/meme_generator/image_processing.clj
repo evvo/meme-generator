@@ -3,7 +3,7 @@
   (:require [meme-generator.config :refer :all]
             [meme-generator.common :refer :all]
             [me.raynes.fs :refer [base-name]]
-            [clojure.java.io :refer [resource file input-stream]]
+            [clojure.java.io :refer [resource file input-stream as-file]]
             [mikera.image.filters :as filt]))
 
 (defn get-params [params]
@@ -81,10 +81,6 @@
 (defn resize-image [image]
   (resize image max-width))
 
-;; TODO
-;; (defn add-filter [image]
-;;   (filter-image image (filt/invert)))
-
 (defn save-image [image, newPath]
   (save image newPath))
 
@@ -96,7 +92,6 @@
         resize-image
         (add-text-outline-effect parsed-params)
         (add-text parsed-params)
-  ;;       add-filter
         (save-image (apply str memesFolder (new-uuid) ".png")))))
 
 (defn stream-image [imagePath]
@@ -121,3 +116,12 @@
   (let [graphics-environment (java.awt.GraphicsEnvironment/getLocalGraphicsEnvironment)
         fonts (.getAvailableFontFamilyNames graphics-environment)]
     (into [] fonts)))
+
+(defn get-meme-path [imagePath]
+  (str memesFolder imagePath))
+
+(defn meme-exists [imagePath]
+   (let [meme-path (get-meme-path imagePath)]
+    (if (.exists (as-file meme-path))
+      true
+      false)))

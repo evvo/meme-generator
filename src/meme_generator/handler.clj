@@ -13,16 +13,18 @@
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
 
 (defn get-meme-by-id [imagePath]
-  (template "Your new meme!"
-    [:section {:class "all-100 align-center"}
-     [:div {:class "all-100"}
-      [:p "This is your new meme!"]
-        [:img {:src (str "/meme-image/" imagePath)}]]]))
+  (if-not (meme-exists imagePath)
+    (response-with-status 404 "Not found" "text/html")
+    (template "Your new meme!"
+      [:section {:class "all-100 align-center"}
+       [:div {:class "all-100"}
+        [:p "This is your new meme!"]
+          [:img {:src (str "/meme-image/" imagePath)}]]])))
 
 (defn get-meme-image [imagePath]
-  (let [filePath (str memesFolder imagePath)]
-    (if (.exists (as-file filePath))
-      (response-with-status 200 (input-stream (str memesFolder imagePath)) "image/png")
+  (let [meme-path (get-meme-path imagePath)]
+    (if (meme-exists imagePath)
+      (response-with-status 200 (input-stream meme-path) "image/png")
       (response-with-status 404 "Not found" "text/html"))))
 
 (defn create-meme-image [params]
