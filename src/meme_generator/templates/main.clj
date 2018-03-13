@@ -1,5 +1,6 @@
 (ns meme-generator.templates.main
   (:require [hiccup.form :as f]
+            [meme-generator.config :refer :all]
             [hiccup.page :as hp]))
 
 (defn template-header [title]
@@ -16,7 +17,7 @@
    (hp/include-js "/lib/jquery/jquery.min.js")
    (hp/include-js "/lib/spectrum/spectrum.js")
    (hp/include-js "/custom/script.js")
-   [:title (str "Meme Generator | " title)]])
+   [:title (str main-title " | " title)]])
 
 (defn template-footer []
   [:footer {:class "clearfix"}
@@ -25,7 +26,7 @@
         [:li {:class "active"}
          [:a {:href "/"} "Home"]]]
      [:p {:class "note"}
-      "All rights reserved. Made using Clojure."]]])
+      "All rights reserved. Made using Clojure by Evtimiy Mihaylov (evo@vaupe.com)"]]])
 
 (defn main-header-element []
   [:header
@@ -40,11 +41,17 @@
    (main-header-element)
    content])
 
-(defn template [title content]
+(defn template-prototype [title content custom-body-class]
   (hp/html5
     (template-header title)
-    (body [:div {:class "column-group gutters"} content])
+    (body [:div {:class (if custom-body-class custom-body-class custom-body-class)} content])
     (template-footer)))
+
+(defn template
+  ([title content]
+   (template-prototype title content "column-group gutters"))
+  ([title content custom-body-class]
+   (template-prototype title content custom-body-class)))
 
 (defn get-errors-markup [errors]
   (into [] (cons :ul
@@ -55,3 +62,9 @@
           ]
         )
       errors))))
+
+(defn errors-template [validator-result]
+  (template
+    "Errors occured!"
+    [:div {:class "all-100"}
+      (get-errors-markup validator-result)] "column-group"))

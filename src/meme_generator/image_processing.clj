@@ -56,7 +56,7 @@
           fontObject (java.awt.Font. font (font-style-selector font-style) (read-string size))
           positions (get-position image text fontObject {:vertical position-y :horizontal position-x})]
       (.setFont imageGraphics fontObject)
-      (.setColor imageGraphics (java.awt.Color/decode "#000000"))
+      (.setColor imageGraphics (java.awt.Color/decode text-outline-color))
       (.drawString imageGraphics text (+ 2 (positions :position-x)) (+ 2 (positions :position-y)))
       (.drawString imageGraphics text (+ 3 (positions :position-x)) (+ 3 (positions :position-y)))
       (.drawString imageGraphics text (+ 4 (positions :position-x)) (+ 4 (positions :position-y)))

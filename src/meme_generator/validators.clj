@@ -28,10 +28,10 @@
     "Invalid color"))
 
 (defvalidator meme-validator
-  [:text :presence]
+  [:text [:presence :length {:less-than 50}]]
   [:font-color :validate-color]
   [:image :image-for-meme-exists]
-  [:size :numericality]
+  [:size :numericality {:less-than-or-equal-to 100}]
   [:font :validate-font-exists]
   [:font-style :validate-font-style]
   [:position-x :validate-position-x]

@@ -22,7 +22,7 @@
 (defn get-meme-image [imagePath]
   (let [filePath (str memesFolder imagePath)]
     (if (.exists (as-file filePath))
-      (response-with-status 200 (input-stream (str memesFolder imagePath)) "image/jpg")
+      (response-with-status 200 (input-stream (str memesFolder imagePath)) "image/png")
       (response-with-status 404 "Not found" "text/html"))))
 
 (defn create-meme-image [params]
@@ -35,7 +35,7 @@
   (let [validator-result (meme-validator params)]
     (if (empty? validator-result)
       (create-meme-image params)
-      (response-with-status 422 (template "Errors occured!" [:div (get-errors-markup validator-result)]) "text/html"))))
+      (response-with-status 422 (errors-template validator-result) "text/html"))))
 
 (defroutes app-routes
   (GET "/" [request] create-meme-form)
